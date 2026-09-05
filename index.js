@@ -14,7 +14,6 @@ const client = new MongoClient(process.env.MONGO_DB_URI);
 
 async function connectToMongoDB() {
   try {
-    await client.connect();
     console.log("You successfully connected to MongoDB!");
 
     const db = client.db("legalEaseDB");
@@ -527,7 +526,7 @@ async function connectToMongoDB() {
 
     app.get("/transactions", async (req, res) => {
       try {
-        const transactions = await transactionsCollection
+        const transactions = await paymentCollection
           .find({})
           .sort({ createdAt: -1 })
           .toArray();
@@ -599,6 +598,7 @@ async function connectToMongoDB() {
 
 connectToMongoDB();
 
-async function disconnectFromMongoDB() {
-  await client.close();
-}
+// async function disconnectFromMongoDB() {
+//   await client.close();
+// }
+// module.exports = app;
